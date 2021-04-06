@@ -1,0 +1,130 @@
+<!--index.wxml-->
+<!-- <view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view> -->
+
+<view class="content">
+  <view style="flex:2; margin-left:5px">
+    <button data-index="0" class="{{tabIndex == 0 ?'active':''}}" size='mini' style='flex:1;font-size:12px;' bindtap="tabChanged">我的资源</button>
+    <button data-index="1" class="{{tabIndex == 1 ?'active':''}}" size='mini' style='flex:1;font-size:12px;margin-left:5px' bindtap="tabChanged">我的账户</button>
+  </view>
+
+  <image wx-if="{{tabIndex == 0}}" style="width: 23px; height: 23px" src="../../images/time.png"></image>
+
+  <view wx-if="{{tabIndex == 0}}" style="flex:1;">
+    <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+      <input class="input-date" value='{{date}}' />
+    </picker>
+  </view>
+</view>
+
+<view class=" {{tabIndex == 0 ?'show':'hidden'}}">
+
+  <view class="weui-flex">
+    <view class="weui-flex__item">
+
+      <view class="parent-placeholder">
+
+        <view class="weui-flex">
+          <view class="weui-flex__item" style='margin-left:5px;font-size:13px;'>
+            当日收入:1000
+          </view>
+          <view class="weui-flex__item"></view>
+          <view class="weui-flex__item" style='margin-left:10px;font-size:12px;'>
+            单位：万元
+          </view>
+        </view>
+
+
+
+        <view class="weui-flex">
+          <view class="weui-flex__item">
+            <view class="child-placeholder">
+              <view class="weui-cell" style='line-height:1.41176471; '>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>月度累计</view>
+                <view class="weui-cell__ft" style='font-size:12px;'>99.27</view>
+              </view>
+              <view class="weui-cell" style='line-height:1.41176471;'>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>环比</view>
+                <view class="weui-cell__ft" style='font-size:12px; color:green;'>99.27</view>
+              </view>
+              <view class="weui-cell" style='line-height:1.41176471;'>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>同比</view>
+                <view class="weui-cell__ft" style='font-size:12px; color:red;'>99.27</view>
+              </view>
+
+            </view>
+          </view>
+          <view class="weui-flex__item">
+            <view class="child-placeholder">
+
+              <view class="weui-cell" style='line-height:1.41176471; '>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>年度累计</view>
+                <view class="weui-cell__ft" style='font-size:12px;'>99.27</view>
+              </view>
+              <view class="weui-cell" style='line-height:1.41176471;'>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>环比</view>
+                <view class="weui-cell__ft" style='font-size:12px; color:green;'>99.27</view>
+              </view>
+              <view class="weui-cell" style='line-height:1.41176471;'>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>同比</view>
+                <view class="weui-cell__ft" style='font-size:12px; color:red;'>99.27</view>
+              </view>
+
+            </view>
+          </view>
+        </view>
+
+
+      </view>
+    </view>
+
+
+
+
+  </view>
+
+  <view class="ec-container">
+    <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+  </view>
+
+
+
+</view>
+
+
+
+
+<view class="page {{tabIndex == 1 ?'show':'hidden'}}">
+  <view class="weui-cells weui-cells_after-title" style="font-size:12px;">
+  <view class="weui-cell">
+      <view class="weui-cell__bd">姓名</view>
+      <view class="weui-cell__ft">{{user.loginName}}</view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__bd">部门</view>
+      <view class="weui-cell__ft">测试部门</view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__bd">电话</view>
+      <view class="weui-cell__ft">{{user.phone}}</view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__bd">手机</view>
+      <view class="weui-cell__ft">{{user.mobile}}</view>
+    </view>
+
+  </view>
+  <view class="button-sp-area" style='margin-top: 10px'>
+    <button bindtap="logout" class="weui-btn mini-btn" type="warn" style='font-size: 12px; line-height:2.5;'>退出登录</button>
+  </view>
+</view>

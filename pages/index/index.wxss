@@ -1,0 +1,58 @@
+/**index.wxss**/
+.content{  
+  display: flex;  
+  flex-direction: row;
+  font-size:12px
+} 
+ .active {
+  background-color: #0077d6;
+}
+
+.show{display:block; margin: 10px 10px}
+.hidden{display:none;}
+
+.input-date {
+  box-sizing: border-box;
+  border: 2rpx solid #ddd;
+  width: 200rpx;
+  height: 65rpx;
+  line-height: 65rpx;
+  padding: 0 0 0 0;
+}
+
+.placeholder{
+    margin: 2px;
+    padding: 0 2px;
+    text-align: center;
+    background-color: #EBEBEB;
+    height: 5.3em;
+    line-height: 5.3em;
+    color: #cfcfcf;
+}
+
+.child-placeholder{
+    margin: 2px;
+    padding: 0 2px;
+    /* text-align: center; */
+    background-color: white;
+    height: 6.5em;
+    line-height: 4.3em;
+    color: #cfcfcf;
+    border: 2rpx solid #ddd;
+}
+
+.parent-placeholder{
+    margin: 2px;
+    padding: 2px 2px;
+    /* text-align: center; */
+    background-color: #EBEBEB;
+    height: 8.5em;
+    /* line-height: 5em; */
+    /* color: #cfcfcf; */
+    font: 8px;
+}
+
+ec-canvas {
+  width: 100%;
+  height: 100%;
+}

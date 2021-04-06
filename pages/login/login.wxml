@@ -1,0 +1,18 @@
+
+<!--pages/login/login.wxml-->
+
+<view class="main-body">
+  <form bindsubmit="formLogin">
+    <view>
+      <input name="userName" bindinput="bindNameInput" class="input-login" placeholder="用户名" />
+    </view>
+    <view class="hs20"></view>
+    <view>
+      <input name="password" password="true" bindinput="bindPwdInput" class="input-login" placeholder="密码" bindconfirm="bindInputLogin"  />
+    </view>
+    <view class="hs20"></view>
+    <view>
+      <button class="btn-login" hover-class="btn-login-hover" form-type="submit">登 录</button>
+    </view>
+  </form>
+</view>

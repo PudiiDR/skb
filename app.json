@@ -1,0 +1,41 @@
+{
+  "pages":[
+    "pages/login/login",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/resource/index",
+    "pages/test/test"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/skb.png",
+        "iconPath": "images/skb.png",
+        "pagePath": "pages/index/index",
+        "text": "营收情况"
+      },
+      {
+        "selectedIconPath": "images/skb.png",
+        "iconPath": "images/skb.png",
+        "pagePath": "pages/logs/logs",
+        "text": "财务情况"
+      },
+      {
+        "selectedIconPath": "images/skb.png",
+        "iconPath": "images/skb.png",
+        "pagePath": "pages/resource/index",
+        "text": "我的资源"
+      }
+    ]
+  }
+  
+}
