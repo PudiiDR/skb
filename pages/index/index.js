@@ -9,7 +9,7 @@ Page({
   },
  
   onLoad: function () {
-    creatChart();
+    creatChart
   },
   
   bindDateChange: function (e) {
@@ -75,7 +75,7 @@ function creatChart() {
     console.error('getSystemInfoSync failed!');
   }
 
-  var simulationData = Page.call('createSimulationData');
+  var simulationData = this.createSimulationData();
   lineChart = new wxCharts({
     canvasId: 'lineCanvas',
     type: 'line',
