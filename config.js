@@ -8,8 +8,8 @@ var config = {
     host,
 
     // 测试的请求地址，用于测试会话
-    requestUrl: 'http://${host}/business/api/v1/jwt/login',
-    login_url: `http://${host}/business/api/v1/jwt/login`
+    requestUrl: 'https://${host}/business/api/v1/jwt/login',
+    login_url: `https://${host}/business/api/v1/jwt/login`
 };
 
 module.exports = config
