@@ -16,18 +16,12 @@ var login = function (that) {
       var result = res.data;
       
       if (result.code == 0) {
-        var token = result.data.token;
-        var user = result.data.user;
+        var user_token = result.data;
         wx.setStorage({
-          key: "token",
-          data: token,
+          key: "user_token",
+          data: user_token,
         });
-        wx.setStorage({
-          key: "user",
-          data: user,
-        });
-        app.globalData.bmcUser = user;
-        console.log(app);
+        app.globalData.user_token = user_token;
         wx.switchTab({
           url: '../index/index'
         });
@@ -72,28 +66,16 @@ Page({
 
   onLoad: function (e) {
     wx.getStorage({
-      key: 'user',
+      key: 'user_token',
       success: function (res) {
         console.log('获取当前用户:' + res.data);
         if (res.data) {
-          app.globalData.bmcUser = res.data;
+          app.globalData.user_token = res.data;
           wx.switchTab({
-            url: '../resource/index'
+            url: '../index/index'
           });
         }
       }
     });
-
-    // wx.getStorage({
-    //   key: 'token',
-    //   success: function (res) {
-    //     console.log('登录界面载入:' + res);
-    //     if (res.data) {
-    //       wx.switchTab({
-    //         url: '../resource/index'
-    //       })
-    //     }
-    //   }
-    // })
   }
 })

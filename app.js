@@ -36,6 +36,6 @@ App({
   
   globalData: {
     userInfo: null,
-    bmcUser: null,
+    user_token: null,
   }
 })

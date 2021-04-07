@@ -75,7 +75,7 @@ Page({
     console.log(app);
     
     this.setData({
-      user: app.globalData.bmcUser
+      user: app.globalData.user_token.user
     })
   },
   getUserInfo: function (e) {
@@ -106,10 +106,9 @@ Page({
       content: '确认退出',
       success: function (res) {
         if (res.confirm) {
-          console.log('用户点击确定')
-          wx.removeStorage({ key: "token" });
+          console.log('用户点击确定');
           wx.removeStorage({
-            key: "user",
+            key: "user_token",
             success: function (res) {
               console.log("退出登录");
               wx.showToast({
