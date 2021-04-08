@@ -68,7 +68,7 @@ Page({
     wx.getStorage({
       key: 'user_token',
       success: function (res) {
-        console.log('获取当前用户:' + res.data);
+        // console.log('获取当前用户:' + res.data);
         if (res.data) {
           app.globalData.user_token = res.data;
           wx.switchTab({
