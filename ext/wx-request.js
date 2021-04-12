@@ -3,7 +3,9 @@ function wx_request(page, remoteUrl, token, callBack) {
     url: remoteUrl,
     // method: 'POST',
     header: {
-      'content-type': 'application/json', // 默认值
+      // 'content-type': 'application/json', // 默认值
+      // 'content-type': 'application/x-www-form-urlencoded',
+      
       'token': token
     },
     

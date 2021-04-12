@@ -161,14 +161,14 @@ Page({
   onLoad: function () {
     // getRemoteData(this);
     var page = this;
-    wx_request(this, revenue_overall_url + this.data.date, app.globalData.user_token.token,      function (data) {
+    wx_request(this, revenue_overall_url + encodeURI(this.data.date), app.globalData.user_token.token,      function (data) {
       page.setData({
         tableData: data
       });
       drawLineChart(data);
     });
 
-    wx_request(this, revenue_project_url + this.data.date, app.globalData.user_token.token, function() {
+    wx_request(this, revenue_project_url + encodeURI(this.data.date), app.globalData.user_token.token, function() {
       console.log('succ')
     });
   },
@@ -189,7 +189,11 @@ Page({
   },
 
   touchHandler: function (e) {
-    console.log(lineChart.getCurrentDataIndex(e));
+    // console.log(lineChart.getCurrentDataIndex(e));
+    if (!lineChart) {
+      return;
+    }
+    console.log(lineChart);
     lineChart.showToolTip(e, {
       // background: '#7cb5ec',
       format: function (item, category) {
@@ -199,9 +203,9 @@ Page({
     });
   },
 
-  touchHandler: function (e) {
-    lineChart.scrollStart(e);
-  },
+  // touchHandler: function (e) {
+  //   lineChart.scrollStart(e);
+  // },
   moveHandler: function (e) {
     lineChart.scroll(e);
   },
