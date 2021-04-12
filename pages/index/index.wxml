@@ -1,17 +1,3 @@
-<!--index.wxml-->
-<!-- <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-</view> -->
-
 <view class="content">
   <view style="flex:2; margin-left:5px">
     <button data-index="0" class="{{tabIndex == 0 ?'active':''}}" size='mini' style='flex:1;font-size:12px;' bindtap="tabChanged">整体收入</button>
@@ -21,7 +7,7 @@
   <image style="width: 23px; height: 23px" src="../../images/time.png"></image>
 
   <view style="flex:1;">
-    <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+    <picker mode="date" value="{{date}}" start="2015-09-01" end="2019-09-01" bindchange="bindDateChange">
       <input class="input-date" value='{{date}}' />
     </picker>
   </view>
@@ -36,7 +22,7 @@
 
         <view class="weui-flex">
           <view class="weui-flex__item" style='margin-left:5px;font-size:13px;'>
-            当日收入:1000
+            当日收入:{{tableData.dayTotal}}
           </view>
           <view class="weui-flex__item"></view>
           <view class="weui-flex__item" style='margin-left:10px;font-size:12px;'>
@@ -51,7 +37,7 @@
             <view class="child-placeholder">
               <view class="weui-cell" style='line-height:1.41176471; '>
                 <view class="weui-cell__bd" style='font-size:12px; color:black;'>月度累计</view>
-                <view class="weui-cell__ft" style='font-size:12px;'>99.27</view>
+                <view class="weui-cell__ft" style='font-size:12px;'>{{tableData.monthTotal}}</view>
               </view>
               <view class="weui-cell" style='line-height:1.41176471;'>
                 <view class="weui-cell__bd" style='font-size:12px; color:black;'>环比</view>
@@ -69,7 +55,7 @@
 
               <view class="weui-cell" style='line-height:1.41176471; '>
                 <view class="weui-cell__bd" style='font-size:12px; color:black;'>年度累计</view>
-                <view class="weui-cell__ft" style='font-size:12px;'>99.27</view>
+                <view class="weui-cell__ft" style='font-size:12px;'>{{tableData.yearTotal}}</view>
               </view>
               <view class="weui-cell" style='line-height:1.41176471;'>
                 <view class="weui-cell__bd" style='font-size:12px; color:black;'>环比</view>
@@ -111,8 +97,75 @@
 
 <view class="page {{tabIndex == 1 ?'show':'hidden'}}">
 
-  <view class="container">
-    <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
-    <button type="primary" bindtap="updateData">更新数据</button>
+
+  <view class="weui-flex">
+    <view class="weui-flex__item">
+
+      <view class="parent-placeholder">
+
+
+
+        <view class="weui-flex">
+
+          <view class="weui-flex__item">
+            <view class="child-placeholder">
+              <view class="weui-cell" style='line-height:1.41176471; '>
+                <view class="weui-cell__bd" style='font-size:12px; '>项目总数</view>
+                <view class="weui-cell__ft" style='font-size:12px;'></view>
+              </view>
+              <view class="weui-cell" style='line-height:1.41176471;text-align:center;color:black;'>
+                12345
+              </view>
+
+            </view>
+          </view>
+          <view class="weui-flex__item">
+            <view class="child-placeholder">
+              <view class="weui-cell" style='line-height:1.41176471; '>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>月活跃度</view>
+                <view class="weui-cell__ft" style='font-size:12px;'>{{tableData.monthTotal}}</view>
+              </view>
+              <view class="weui-cell" style='line-height:1.41176471;'>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>环比</view>
+                <view class="weui-cell__ft" style='font-size:12px; color:green;'>99.27</view>
+              </view>
+
+
+            </view>
+          </view>
+          <view class="weui-flex__item">
+            <view class="child-placeholder">
+
+              <view class="weui-cell" style='line-height:1.41176471; '>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>年度累计</view>
+                <view class="weui-cell__ft" style='font-size:12px;'>{{tableData.yearTotal}}</view>
+              </view>
+              <view class="weui-cell" style='line-height:1.41176471;'>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>环比</view>
+                <view class="weui-cell__ft" style='font-size:12px; color:green;'>99.27</view>
+              </view>
+
+            </view>
+          </view>
+        </view>
+
+        <view style='font-size:13px'>前十收入项目
+        <radio-group bindchange="listenCheckboxChange" style="display:initial;">
+          <!--这里用label显示内容，for循环写法 wx:for-items 默认item为每一项-->
+          <label style="" wx:for-items="{{items}}">
+            <!--value值和默认选中状态都是通过数据绑定在js中的-->
+            <radio value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
+          </label>
+        </radio-group>
+        </view>
+
+      </view>
+    </view>
+
   </view>
+
+  <view class="ec-container">
+    <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+  </view>
+
 </view>
