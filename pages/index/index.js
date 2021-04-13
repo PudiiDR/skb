@@ -62,10 +62,12 @@ var drawLineChart = function (serverData) {
   }); 
 }
 
-var monthChartData = {"cloumn":[],"data":[]};
-var yearChartData = {"cloumn": [], "data": []};
+var monthChartData ;
+var yearChartData ;
 
 function dealData(monthTopData, yearTopData) {
+  monthChartData  = { "cloumn": [], "data": [] };
+  yearChartData = { "cloumn": [], "data": [] };
   for (var index in monthTopData) {
     var month = monthTopData[index];
     monthChartData.cloumn.push(month.name);
