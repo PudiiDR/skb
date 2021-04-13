@@ -62,14 +62,28 @@ var drawLineChart = function (serverData) {
   }); 
 }
 
-function initChart(canvas, width, height) {
-  chart = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  });
-  canvas.setChart(chart);
+var monthChartData = {"cloumn":[],"data":[]};
+var yearChartData = {"cloumn": [], "data": []};
 
-  var option = {
+function dealData(monthTopData, yearTopData) {
+  for (var index in monthTopData) {
+    var month = monthTopData[index];
+    monthChartData.cloumn.push(month.name);
+    monthChartData.data.push(month.monthTotalTop);
+  }
+  console.log('月度前十数据:' + JSON.stringify(monthChartData));
+  for (var index2 in yearTopData) {
+    var year = yearTopData[index2];
+    
+    yearChartData.cloumn.push(year.name);
+    yearChartData.data.push(year.monthTotalTop);
+  }
+  console.log('年度前十数据:' + JSON.stringify(yearChartData));
+}
+
+function setOption(chart, current) {
+  var currentData = (current == 0 ? monthChartData : yearChartData);
+  const option = {
     color: ['#37a2da', '#32c5e9', '#67e0e3'],
     tooltip: {
       trigger: 'axis',
@@ -104,7 +118,7 @@ function initChart(canvas, width, height) {
       {
         type: 'category',
         axisTick: { show: false },
-        data: ['data1', 'data2', 'data3', 'data4', 'data5', 'data6', 'data7'],
+        data: currentData.cloumn,
         axisLine: {
           lineStyle: {
             color: '#999'
@@ -125,7 +139,7 @@ function initChart(canvas, width, height) {
             position: 'inside'
           }
         },
-        data: [300, 270, 340, 344, 300, 320, 310],
+        data: currentData.data,
         itemStyle: {
           // emphasis: {
           //   color: '#37a2da'
@@ -135,13 +149,14 @@ function initChart(canvas, width, height) {
     ]
   };
   chart.setOption(option);
-  return chart;
 }
+
 
 Page({
   data: {
     date: util.formatDateWithZero(new Date()),
     tabIndex: 1,
+    radioIndex : 0,
     tableData: {
       "everyDayTotal": 0,
       "lastMonthTotal": 0,
@@ -149,12 +164,20 @@ Page({
       "yearTotal": 0,
       "monthTotal": 0
     },
+    tableData2: {
+      "erpMonthAdd": 0,
+      "erpYearActive": 0,
+      "erpYearAdd": 0,
+      "erpMonthActive": 0,
+      "erpTotal": 0
+    },
     items: [
       { name: '月度', value: '0', checked: 'true' },
       { name: '年度', value: '1' }
     ],
     ec: {
-      onInit: initChart
+      // onInit: initChart
+      lazyLoad: true
     }
   },
 
@@ -167,9 +190,35 @@ Page({
       });
       drawLineChart(data);
     });
+    this.ecComponent = this.selectComponent('#mychart-dom-bar');
+    wx_request(this, revenue_project_url + encodeURI(this.data.date), app.globalData.user_token.token, function(data) {
+      page.setData({
+        tableData2: data
+      });
+      var monthTop = data.monthTop;
+      var yearTop = data.yearTop;
+      dealData(monthTop, yearTop);
 
-    wx_request(this, revenue_project_url + encodeURI(this.data.date), app.globalData.user_token.token, function() {
-      console.log('succ')
+      page.ecComponent.init((canvas, width, height) => {
+        // 获取组件的 canvas、width、height 后的回调函数
+        // 在这里初始化图表
+        const chart = echarts.init(canvas, null, {
+          width: width,
+          height: height
+        });
+        setOption(chart, 0);
+
+        // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
+        page.chart = chart;
+
+        page.setData({
+          isLoaded: true,
+          isDisposed: false
+        });
+
+        // 注意这里一定要返回 chart 实例，否则会影响事件处理等
+        return chart;
+      });
     });
   },
 
@@ -220,7 +269,7 @@ Page({
 
   updateData: function () {
     var page = this;
-    wx_request(this, revenue_overall_url + this.data.date, app.globalData.user_token.token, function (serverData) {
+    wx_request(this, revenue_overall_url + encodeURI(this.data.date), app.globalData.user_token.token, function (serverData) {
       page.setData({
         tableData: serverData
       });
@@ -243,13 +292,67 @@ Page({
         categories: categories,
         series: series
       });
-    });   
+    });
+
+    wx_request(this, revenue_project_url + encodeURI(this.data.date), app.globalData.user_token.token, function (data) {
+      page.setData({
+        tableData2: data
+      });
+      var monthTop = data.monthTop;
+      var yearTop = data.yearTop;
+      dealData(monthTop, yearTop);
+
+      page.ecComponent.init((canvas, width, height) => {
+        // 获取组件的 canvas、width、height 后的回调函数
+        // 在这里初始化图表
+        const chart = echarts.init(canvas, null, {
+          width: width,
+          height: height
+        });
+        setOption(chart, page.data.radioIndex);
+
+        // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
+        page.chart = chart;
+
+        page.setData({
+          isLoaded: true,
+          isDisposed: false
+        });
+
+        // 注意这里一定要返回 chart 实例，否则会影响事件处理等
+        return chart;
+      });
+    }); 
   },
 
   listenCheckboxChange: function (e) {
-    console.log('radio-group中的radio选中或者取消是我被调用');
     //打印对象包含的详细信息
-    console.log(e);
+    var current = e.detail.value;
+    this.setData({
+      radioIndex: current
+    })
+   
+    this.ecComponent.init((canvas, width, height) => {
+      // 获取组件的 canvas、width、height 后的回调函数
+      // 在这里初始化图表
+      const chart = echarts.init(canvas, null, {
+        width: width,
+        height: height
+      });
+      setOption(chart, current);
+
+      // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
+      this.chart = chart;
+
+      this.setData({
+        isLoaded: true,
+        isDisposed: false
+      });
+
+      // 注意这里一定要返回 chart 实例，否则会影响事件处理等
+      return chart;
+    });
+    
 
   }
 

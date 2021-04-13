@@ -18,20 +18,20 @@
     "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "images/skb.png",
-        "iconPath": "images/skb.png",
+        "selectedIconPath": "images/counthl.png",
+        "iconPath": "images/count.png",
         "pagePath": "pages/index/index",
         "text": "营收情况"
       },
       {
-        "selectedIconPath": "images/skb.png",
-        "iconPath": "images/skb.png",
+        "selectedIconPath": "images/cwhl.png",
+        "iconPath": "images/cw.png",
         "pagePath": "pages/logs/logs",
         "text": "财务情况"
       },
       {
-        "selectedIconPath": "images/skb.png",
-        "iconPath": "images/skb.png",
+        "selectedIconPath": "images/myhl.png",
+        "iconPath": "images/my.png",
         "pagePath": "pages/resource/index",
         "text": "我的资源"
       }

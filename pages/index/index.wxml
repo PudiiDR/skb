@@ -8,7 +8,7 @@
 
   <view style="flex:1;">
     <picker mode="date" value="{{date}}" start="2015-09-01" end="2019-09-01" bindchange="bindDateChange">
-      <input class="input-date" value='{{date}}' />
+      <input class="input-date" value='{{date}}' disabled="true"/>
     </picker>
   </view>
 </view>
@@ -41,11 +41,11 @@
               </view>
               <view class="weui-cell" style='line-height:1.41176471;'>
                 <view class="weui-cell__bd" style='font-size:12px; color:black;'>环比</view>
-                <view class="weui-cell__ft" style='font-size:12px; color:green;'>99.27</view>
+                <view class="weui-cell__ft" style='font-size:12px; color:green;'>{{tableData.month_HB}}</view>
               </view>
               <view class="weui-cell" style='line-height:1.41176471;'>
                 <view class="weui-cell__bd" style='font-size:12px; color:black;'>同比</view>
-                <view class="weui-cell__ft" style='font-size:12px; color:red;'>99.27</view>
+                <view class="weui-cell__ft" style='font-size:12px; color:red;'>{{tableData.month_TB}}</view>
               </view>
 
             </view>
@@ -59,11 +59,11 @@
               </view>
               <view class="weui-cell" style='line-height:1.41176471;'>
                 <view class="weui-cell__bd" style='font-size:12px; color:black;'>环比</view>
-                <view class="weui-cell__ft" style='font-size:12px; color:green;'>99.27</view>
+                <view class="weui-cell__ft" style='font-size:12px; color:green;'>{{tableData.year_HB}}</view>
               </view>
               <view class="weui-cell" style='line-height:1.41176471;'>
                 <view class="weui-cell__bd" style='font-size:12px; color:black;'>同比</view>
-                <view class="weui-cell__ft" style='font-size:12px; color:red;'>99.27</view>
+                <view class="weui-cell__ft" style='font-size:12px; color:red;'>--</view>
               </view>
 
             </view>
@@ -116,7 +116,7 @@
                 <view class="weui-cell__ft" style='font-size:12px;'></view>
               </view>
               <view class="weui-cell" style='line-height:1.41176471;text-align:center;color:black;'>
-                12345
+                {{tableData2.erpTotal}}
               </view>
 
             </view>
@@ -125,11 +125,11 @@
             <view class="child-placeholder">
               <view class="weui-cell" style='line-height:1.41176471; '>
                 <view class="weui-cell__bd" style='font-size:12px; color:black;'>月活跃度</view>
-                <view class="weui-cell__ft" style='font-size:12px;'>{{tableData.monthTotal}}</view>
+                <view class="weui-cell__ft" style='font-size:12px;'>{{tableData2.erpMonthActive}}</view>
               </view>
               <view class="weui-cell" style='line-height:1.41176471;'>
-                <view class="weui-cell__bd" style='font-size:12px; color:black;'>环比</view>
-                <view class="weui-cell__ft" style='font-size:12px; color:green;'>99.27</view>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>月度新增</view>
+                <view class="weui-cell__ft" style='font-size:12px; color:green;'>{{tableData2.erpMonthAdd}}</view>
               </view>
 
 
@@ -139,12 +139,12 @@
             <view class="child-placeholder">
 
               <view class="weui-cell" style='line-height:1.41176471; '>
-                <view class="weui-cell__bd" style='font-size:12px; color:black;'>年度累计</view>
-                <view class="weui-cell__ft" style='font-size:12px;'>{{tableData.yearTotal}}</view>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>年度活跃</view>
+                <view class="weui-cell__ft" style='font-size:12px;'>{{tableData2.erpYearActive}}</view>
               </view>
               <view class="weui-cell" style='line-height:1.41176471;'>
-                <view class="weui-cell__bd" style='font-size:12px; color:black;'>环比</view>
-                <view class="weui-cell__ft" style='font-size:12px; color:green;'>99.27</view>
+                <view class="weui-cell__bd" style='font-size:12px; color:black;'>年度新增</view>
+                <view class="weui-cell__ft" style='font-size:12px; color:green;'>{{tableData2.erpYearAdd}}</view>
               </view>
 
             </view>
@@ -154,7 +154,7 @@
         <view style='font-size:13px'>前十收入项目
         <radio-group bindchange="listenCheckboxChange" style="display:initial;">
           <!--这里用label显示内容，for循环写法 wx:for-items 默认item为每一项-->
-          <label style="" wx:for-items="{{items}}">
+          <label style="" wx:for-items="{{items}}" wx:key="*this.value">
             <!--value值和默认选中状态都是通过数据绑定在js中的-->
             <radio value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
           </label>

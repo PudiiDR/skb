@@ -11,7 +11,7 @@ function wx_request(page, remoteUrl, token, callBack) {
     
     data: {},
     success: function (res) {
-      console.log(res);
+      console.log(res.data.data);
       var result = res.data;
       switch (result.code) {
         case '0':   
