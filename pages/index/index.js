@@ -78,7 +78,7 @@ function dealData(monthTopData, yearTopData) {
     var year = yearTopData[index2];
     
     yearChartData.cloumn.push(year.name);
-    yearChartData.data.push(year.monthTotalTop);
+    yearChartData.data.push(year.yearTotalTop);
   }
   console.log('年度前十数据:' + JSON.stringify(yearChartData));
 }

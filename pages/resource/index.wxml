@@ -32,71 +32,66 @@
   <view class="weui-flex">
     <view class="weui-flex__item">
 
-      <view class="parent-placeholder">
+      <view class='table-wrap'>
+        <view class="table">
+          <view class="tr">
+            <!-- <view class="th">项目</view> -->
+            <view class="th">客户</view>
+            <view class="th">供应商</view>
+            <view class="th">司机</view>
+            <view class="th">车辆</view>
+          </view>
+          <view class="tr">
+            <!-- <view class="td">123</view> -->
+            <view class="td">123</view>
+            <view class="td">123</view>
+            <view class="td">123</view>
+            <view class="td">{{tableData.allCount}}</view>
+          </view>
 
-        <view class="weui-flex">
-          <view class="weui-flex__item" style='margin-left:5px;font-size:13px;'>
-            当日收入:1000
-          </view>
-          <view class="weui-flex__item"></view>
-          <view class="weui-flex__item" style='margin-left:10px;font-size:12px;'>
-            单位：万元
-          </view>
         </view>
+      </view>
 
 
+    </view>
+  </view>
 
-        <view class="weui-flex">
-          <view class="weui-flex__item">
-            <view class="child-placeholder">
-              <view class="weui-cell" style='line-height:1.41176471; '>
-                <view class="weui-cell__bd" style='font-size:12px; color:black;'>月度累计</view>
-                <view class="weui-cell__ft" style='font-size:12px;'>99.27</view>
-              </view>
-              <view class="weui-cell" style='line-height:1.41176471;'>
-                <view class="weui-cell__bd" style='font-size:12px; color:black;'>环比</view>
-                <view class="weui-cell__ft" style='font-size:12px; color:green;'>99.27</view>
-              </view>
-              <view class="weui-cell" style='line-height:1.41176471;'>
-                <view class="weui-cell__bd" style='font-size:12px; color:black;'>同比</view>
-                <view class="weui-cell__ft" style='font-size:12px; color:red;'>99.27</view>
-              </view>
+  <!-- <view class="ec-container">
+    <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+  </view> -->
+  
+ <view class="weui-article__h3" style='margin-top:80px;'>司机三证情况:</view>
+  <view class="ec-container1">
+    <ec-canvas id="mychart-dom-pie1" canvas-id="mychart-pie1" ec="{{ ec }}"></ec-canvas>
+    
+  </view>
 
-            </view>
-          </view>
-          <view class="weui-flex__item">
-            <view class="child-placeholder">
+  <view class="weui-article__h3" style='margin-top:300px;'>车型分布:</view>
+  <view class="ec-container1" style='margin-top:350px;'>
+    <ec-canvas id="mychart-dom-pie2" canvas-id="mychart-pie2" ec="{{ ec }}"></ec-canvas>
+  </view>
 
-              <view class="weui-cell" style='line-height:1.41176471; '>
-                <view class="weui-cell__bd" style='font-size:12px; color:black;'>年度累计</view>
-                <view class="weui-cell__ft" style='font-size:12px;'>99.27</view>
-              </view>
-              <view class="weui-cell" style='line-height:1.41176471;'>
-                <view class="weui-cell__bd" style='font-size:12px; color:black;'>环比</view>
-                <view class="weui-cell__ft" style='font-size:12px; color:green;'>99.27</view>
-              </view>
-              <view class="weui-cell" style='line-height:1.41176471;'>
-                <view class="weui-cell__bd" style='font-size:12px; color:black;'>同比</view>
-                <view class="weui-cell__ft" style='font-size:12px; color:red;'>99.27</view>
-              </view>
-
-            </view>
-          </view>
+  <view class="weui-article__h3" style='margin-top:300px;'>车长分布:</view>
+  <view class="ec-container1" style='margin-top:650px;'>
+    <ec-canvas id="mychart-dom-pie3" canvas-id="mychart-pie2" ec="{{ ec }}"></ec-canvas>
+  </view>
+  
+  <view class="weui-article__h3" style='margin-top:300px;'>常跑线路TOP5:</view>
+  <view class='table-wrap' style='margin-top:1100px;' >
+        <view class="table">
+        <view class="tr" >
+          <view class="th">始发</view>
+          <view class="th">到达</view>
+          <view class="th">车辆数</view>
         </view>
-
+        <view class="tr" wx:for-items="{{tableData.carLineCount}}" wx:key="*this.value">
+          <view class="td" style="font-size:12px">{{item.fhprovice}} {{item.fhcity}}</view>
+          <view class="td" style="font-size:12px">{{item.shprovice}} {{item.shcity}}</view>
+          <view class="td" style="font-size:12px">{{item.carLinecount}}</view>
+        </view>
 
       </view>
     </view>
-
-
-
-
-  </view>
-
-  <view class="ec-container">
-    <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
-  </view>
-
 
 
 </view>
@@ -105,14 +100,25 @@
 
 
 <view class="page {{tabIndex == 1 ?'show':'hidden'}}">
+  <view class="container">
+  <view class="userinfo">
+    <button class="weui-btn mini-btn" type="default" size="mini" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 点击查看头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+ 
+</view>
+
   <view class="weui-cells weui-cells_after-title" style="font-size:12px;">
-  <view class="weui-cell">
+    <view class="weui-cell">
       <view class="weui-cell__bd">姓名</view>
       <view class="weui-cell__ft">{{user.loginName}}</view>
     </view>
     <view class="weui-cell">
       <view class="weui-cell__bd">部门</view>
-      <view class="weui-cell__ft">测试部门</view>
+      <view class="weui-cell__ft">****</view>
     </view>
     <view class="weui-cell">
       <view class="weui-cell__bd">电话</view>

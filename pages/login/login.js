@@ -72,7 +72,8 @@ Page({
         if (res.data) {
           app.globalData.user_token = res.data;
           wx.switchTab({
-            url: '../index/index'
+            // url: '../index/index'
+            url: '../resource/index'
           });
         }
       }
